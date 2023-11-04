@@ -14,6 +14,18 @@ public class LoginDialog extends Dialog {
     private Button btnLogin;
     private Context context;
 
+
+    public interface OnLoginListener {
+        void onSuccess();
+        void onFailure();
+    }
+
+    private OnLoginListener onLoginListener = null;
+
+    public void setOnLoginListener(OnLoginListener onLoginListener) {
+        this.onLoginListener = onLoginListener;
+    }
+
     public LoginDialog(Context context) {
         super(context);
         this.context = context;
@@ -23,8 +35,6 @@ public class LoginDialog extends Dialog {
         edtPassword = findViewById(R.id.edtPassword);
         btnLogin = findViewById(R.id.btnLogin);
 
-        edtUsername.setError("Please enter valid email id");
-
         btnLogin.setOnClickListener(new BtnLoginClickListener());
     }
 
@@ -32,11 +42,19 @@ public class LoginDialog extends Dialog {
         @Override
         public void onClick(View view) {
             if(edtUsername.getText().toString().equals("bitcode")) {
-                mt("Login Successful!");
-                dismiss();
+                /*mt("Login Successful!");
+                dismiss();*/
+                //code to delegate the event to the listener
+                if(onLoginListener != null) {
+                    onLoginListener.onSuccess();
+                }
             }
             else {
-                mt("Login failed!");
+                /*mt("Login failed!");*/
+                //code to delegate the event to the listener
+                if(onLoginListener != null) {
+                    onLoginListener.onFailure();
+                }
             }
         }
     }
