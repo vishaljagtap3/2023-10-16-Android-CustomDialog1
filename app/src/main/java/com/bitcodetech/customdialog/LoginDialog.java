@@ -16,8 +16,8 @@ public class LoginDialog extends Dialog {
 
 
     public interface OnLoginListener {
-        void onSuccess();
-        void onFailure();
+        void onSuccess(LoginDialog loginDialog);
+        void onFailure(LoginDialog loginDialog);
     }
 
     private OnLoginListener onLoginListener = null;
@@ -46,14 +46,14 @@ public class LoginDialog extends Dialog {
                 dismiss();*/
                 //code to delegate the event to the listener
                 if(onLoginListener != null) {
-                    onLoginListener.onSuccess();
+                    onLoginListener.onSuccess(LoginDialog.this);
                 }
             }
             else {
                 /*mt("Login failed!");*/
                 //code to delegate the event to the listener
                 if(onLoginListener != null) {
-                    onLoginListener.onFailure();
+                    onLoginListener.onFailure(LoginDialog.this);
                 }
             }
         }
